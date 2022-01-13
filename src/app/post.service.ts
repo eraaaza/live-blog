@@ -10,21 +10,23 @@ export class PostService {
       'Nature is really cool!',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Shaqi_jrvej.jpg/1200px-Shaqi_jrvej.jpg',
       'Author: test@123.com',
-      new Date()
+      new Date(),
+      1
     ),
     new Post(
       'Hampi',
       'Hampi is really cool!',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Shaqi_jrvej.jpg/1200px-Shaqi_jrvej.jpg',
       'Author: test@123.com',
-      new Date()
+      new Date(),2
     ),
     new Post(
       'El Salvador',
       'El Salvador is really cool!',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Shaqi_jrvej.jpg/1200px-Shaqi_jrvej.jpg',
       'Author: test@123.com',
-      new Date()
+      new Date(),
+      5
     ),
   ];
 
@@ -46,5 +48,15 @@ export class PostService {
   // facility 4
   updatePosts(index: number, post: Post) {
     this.listOfPosts[index] = post;
+  }
+
+  // new facility 5 
+  getPost(index: number) {
+    return this.listOfPosts[index];
+  }
+
+  // facility 6
+  likePost(index:number) {
+    this.listOfPosts[index].numberOfLikes += 1;
   }
 }

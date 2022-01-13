@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 
@@ -11,7 +12,7 @@ export class PostComponent implements OnInit {
   // receive data from post-list component
   @Input() post?: Post;
   @Input() index: number = 0;
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private router: Router) {}
 
   ngOnInit(): void {
     console.log(this.post);
@@ -21,5 +22,14 @@ export class PostComponent implements OnInit {
   onDelete() {
     console.log("You clicked delete");
     this.postService.deletePosts(this.index);
+  }
+
+  onEdit() {
+    console.log('onEdit called')
+    this.router.navigate(["/post-edit", this.index]);
+  }
+
+  likePost() {
+    this.postService.likePost(this.index);
   }
 }
