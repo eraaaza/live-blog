@@ -1,0 +1,41 @@
+version: 2.1
+orbs:
+  win: circleci/windows@2.4.1
+docker:
+  - image: circleci/node:8.9.0
+  - image: circleci/npm:5.5.1
+jobs:
+  build-test:
+    working_directory: ~/wac
+    executor: 
+        name: win/default
+        shell: bash.exe
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run: 
+          name: Install Angular and Gulp
+          command: npm install -g @angular/cli && npm install -g gulp-cli
+      - run: 
+          name: Generate Files with Gulp
+          command: gulp generate
+      - run: 
+          name: Build App
+          command: gulp build
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - nodes_modules
+      - run:
+          name: Run Unit Test
+          command: ng test
+workflows:
+  build_and_test:
+    jobs:
+      - build-test
