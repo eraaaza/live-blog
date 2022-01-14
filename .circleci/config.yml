@@ -29,9 +29,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - nodes_modules
-      - run:
-          name: Run Unit Test
-          command: ng test
+      # - run:
+      #     name: Run Unit Test
+      #     command: ng test
 workflows:
   build_and_test:
     jobs:
